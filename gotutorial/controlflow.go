@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"runtime"
+	"time"
 )
 
 func sqrt(x float64) string {
@@ -43,6 +44,28 @@ func showsystem(){
 	}
 }
 
+
+func showtime(){
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+}
+
+func defercount(){
+	fmt.Println("counting")
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+	fmt.Println("done")
+}
+
+
 func main() {
 	// basic for loop
 	sum1 := 0
@@ -62,6 +85,14 @@ func main() {
 	fmt.Println(pow(3, 2, 10))
 	fmt.Println(pow(3, 3, 20))
 	fmt.Println(newton_method(3,100),sqrt(3))
+	// switch syntax
+	showsystem()
+	// switch without no condition
+	showtime()	
+	// defer test
+	defer fmt.Println("world")
+	fmt.Println("hello")
+	defercount()
 }
 
 
