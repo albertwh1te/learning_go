@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"runtime"
 )
 
 func sqrt(x float64) string {
@@ -27,6 +28,19 @@ func newton_method(x float64,n int) float64{
 		z = z - (z*z - x)/(2*z)
 	}
 	return z
+}
+
+
+func showsystem(){
+	fmt.Println("GO runs on")
+	switch os:= runtime.GOOS;os{
+		case "darwin":
+		fmt.Println("OS X")
+		case "linux":
+		fmt.Println("Linux")
+		default:
+		fmt.Printf("%s",os)
+	}
 }
 
 func main() {
