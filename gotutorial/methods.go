@@ -1,8 +1,27 @@
-package main 
-import (
+package main import (
 	"fmt"
 	"math"
+	"time"
+	"io"
+	"strings"
 	)
+
+type MyError struct {
+	When time.Time
+	What string
+}
+
+func (e *MyError) Error() string {
+	return fmt.Sprintf("at %v, %s",
+		e.When, e.What)
+}
+
+func run() error {
+	return &MyError{
+		time.Now(),
+		"it didn't work",
+	}
+}
 
 type Person struct{
 	Name string
@@ -29,6 +48,7 @@ func do(i interface{}) {
 		fmt.Printf("I don't know about type %T!\n", v)
 	}
 }
+
 func describe(i interface{}) {
 	fmt.Printf("(%v, %T)\n", i, i)
 }
@@ -36,9 +56,11 @@ func describe(i interface{}) {
 type T struct{
 	S string 
 }
+
 type I interface{
 	M()
 }
+
 func (t T) M(){
 	fmt.Println(t.S)
 }
@@ -121,4 +143,18 @@ func main(){
 	for name, ip := range hosts {
 		fmt.Printf("%v: %v\n", name, ip)
 	}
+	if err:=run()
+	err != nil{
+		fmt.Println(err)
+	}
+	c := strings.NewReader("Hello, Reader!")
+	
+	b := make([]byte, 8)
+	for {
+		n, err := c.Read(b)
+		fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
+		fmt.Printf("b[:n] = %q\n", b[:n])
+		if err == io.EOF {
+			break
+		}	}
 }
